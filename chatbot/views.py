@@ -3,5 +3,5 @@ from django.http import HttpResponse
 
 # Create your views here.
 
-def chatbot(response):
-    return HttpResponse('Here will be chatbot')
+def chatbot(request):
+    return render(request, 'chatroom.html')

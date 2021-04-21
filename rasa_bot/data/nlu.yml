@@ -8,14 +8,9 @@ nlu:
     - hi
     - hello there
     - good morning
-    - good evening
-    - moin
     - hey there
     - let's go
     - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
     - yo
 
 - intent: goodbye
@@ -24,7 +19,6 @@ nlu:
     - cu
     - good by
     - cee you later
-    - good night
     - bye
     - goodbye
     - have a nice day
@@ -91,3 +85,16 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+- intent: ask_weather_specific
+  examples: |
+    - What are the [clouds](type) in [London](location)?
+    - Is it [windy](type) in [Warsaw](location)?
+    - Will it [snow](type) tomorrow in [Sopot](location)?
+    - Tell me the [cloud coverage](type) in [Dhaka](location).
+
+- intent: ask_weather_general
+  examples: |
+    - What is the weather in [London](location)?
+    - Is it nice in [Warsaw](location)?
+    - Tel me the weather in [Sopot](location)?

@@ -2,6 +2,27 @@ version: "2.0"
 
 stories:
 
+- story: general weather
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_weather_general
+    entities:
+    - location
+  - action: utter_getting_weather
+  - action: action_get_general_weather
+
+- story: specific weather
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_weather_specific
+    entities:
+    - location
+    - type
+  - action: utter_getting_weather
+  - action: action_get_specific_weather
+
 - story: happy path
   steps:
   - intent: greet

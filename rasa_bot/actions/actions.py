@@ -7,12 +7,36 @@
 
 # This is a simple example for a custom action which utters "Hello World!"
 
-# from typing import Any, Text, Dict, List
-#
-# from rasa_sdk import Action, Tracker
-# from rasa_sdk.executor import CollectingDispatcher
-#
-#
+from typing import Any, Text, Dict, List
+
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
+import weather_calculation
+
+#   - action_get_specific_weather
+#   - action_get_general_weather
+
+
+class ActionCheckWeatherGeneral(Action):
+
+    def name(self) -> Text:
+        return "action_get_general_weather"
+    
+    def run(self, dispatcher, tracker, domain):
+        city = tracker.get_slot('location')
+        city_forecast = weather_calculation.Forecast(city)
+        city_forecast.get_value()
+
+class ActionCheckWeatherSpecific(Action):
+
+    def name(self) -> Text:
+        return "action_get_specific_weather"
+    
+    def run(self, dispatcher, tracker, domain):
+        city = tracker.get_slot('location')
+        part = tracker.get_slot('type')
+        city_forecast = weather_calculation.Forecast(city)
+
 # class ActionHelloWorld(Action):
 #
 #     def name(self) -> Text:

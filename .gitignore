@@ -1,9 +1,0 @@
-/venv
-/.vscode
-config.py
-<<<<<<< HEAD
-__pycache__/
-weather_chatbot/__pycache__/config.cpython-38.pyc
-=======
-__pycache__/
->>>>>>> 35e36dbc461a2305bb3d3aff60a693372d9ac41d

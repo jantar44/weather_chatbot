@@ -3,3 +3,4 @@
 config.py
 __pycache__/
 weather_chatbot/__pycache__/config.cpython-38.pyc
+rasa_bot/models/

@@ -25,7 +25,7 @@ class ActionCheckWeatherGeneral(Action):
     def run(self, dispatcher, tracker, domain):
         city = tracker.get_slot('location')
         city_forecast = weather_calculation.Forecast(city)
-        city_forecast.get_value()
+        city_forecast.get_value(label_key = 'weather', day = 1)
 
 class ActionCheckWeatherSpecific(Action):
 
@@ -36,6 +36,7 @@ class ActionCheckWeatherSpecific(Action):
         city = tracker.get_slot('location')
         part = tracker.get_slot('type')
         city_forecast = weather_calculation.Forecast(city)
+        city_forecast.get_value(label_key = part, day = 1)
 
 # class ActionHelloWorld(Action):
 #

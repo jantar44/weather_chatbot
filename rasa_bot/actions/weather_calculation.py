@@ -22,25 +22,10 @@ class Forecast:
         if len(self.forecast) == 0:
             print('There is no data.')
             raise UserWarning
+
+        # print(self.forecast)
         #columns=['dt', 'sunrise', 'sunset', 'temp', 'feels_like', 'pressure', 'humidity', 'dew_point', 'wind_speed', 'wind_deg', 'weather', 'clouds', 'pop', 'uvi']
     
-    def daily_forecast_inner(self, label_key):
-        """Function returns list of all avaialble data of single cathegory of forecast.
-        Function applies to temperature, feel temperature and general weather
-
-        Args:
-            label_key (str): cathegory of forecast (i.e. feels like, temperature and general weather)
-
-        Returns:
-            list: list of all data of single type in format [dt, key, value]
-        """
-        daily_forcast = list()
-        for day_forecast in self.forecast['daily']:
-            for key, value in day_forecast[label_key].items():
-                daily_forcast.append((day_forecast['dt'], key, value))
-
-        return daily_forcast
-
     def daily_forecast(self, label_key):
         """Function returns list of all avaialble data of single cathegory of forecast.
         (f.e. pressure values in next 5 days)
@@ -49,11 +34,11 @@ class Forecast:
             label_key (str): cathegory of forecast (i.e. pressure, hummidity)
 
         Returns:
-            list: list of all data of single type in format [day, forecast part]
+            list: list of all data of single type
         """
         daily_forcast = list()
         for value in self.forecast['daily']:
-            daily_forcast.append((value['dt'], value[label_key]))
+            daily_forcast.append(value[label_key])
 
         return daily_forcast
 
@@ -67,10 +52,24 @@ class Forecast:
         Returns:
             [str]: forecast value
         """
-        for dt, value in data:
-            if dt == day:
-                return value
-    
+        return data[day]
+
+    def daily_forecast_inner(self, label_key):
+        """Function returns list of all avaialble data of single cathegory of forecast.
+        Function applies to temperature, feel temperature and general weather
+
+        Args:
+            label_key (str): cathegory of forecast (i.e. feels like, temperature and general weather)
+
+        Returns:
+            list: list of all data of single type in format [key, value]
+        """
+        daily_forcast = list()
+        for day_forecast in self.forecast['daily']:
+            for key, value in day_forecast[label_key].items():
+                daily_forcast.append((key, value))
+        return daily_forcast
+
     def search_day_inner(self, data, day, label_key):
         """Functions returns value of forecast of needed day (from list returned from daily_forecast_inner).
 
@@ -78,6 +77,7 @@ class Forecast:
             data (list): forecast data 
             day (str): needed day
             label_key (str): inner cathegory
+            result (list): list of values
 
         Returns:
             [str]: forecast value
@@ -87,11 +87,12 @@ class Forecast:
                 label_key = 'main'
             else:
                 label_key = 'day'
-
-        for dt, label, value in data:
-            if dt == day:
-                if label == label_key:
-                    return value
+                
+        result = list()
+        for label, value in data:
+            if label == label_key:
+                result.append(value)
+        return result[day]
 
     def get_value(self, label_key, day, inner_label_key = None):
         """Function automatise getting the needed value

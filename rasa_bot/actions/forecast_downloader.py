@@ -1,5 +1,5 @@
 import requests
-import config
+from . import config
 
 def get_api_key():
     return config.api_key

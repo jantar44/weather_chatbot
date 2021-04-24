@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 try:
-    import forecast_downloader
+    from . import forecast_downloader
 except ImportError:
     print('Import of forecast_downloader failed')
 
@@ -23,7 +23,6 @@ class Forecast:
             print('There is no data.')
             raise UserWarning
 
-        # print(self.forecast)
         #columns=['dt', 'sunrise', 'sunset', 'temp', 'feels_like', 'pressure', 'humidity', 'dew_point', 'wind_speed', 'wind_deg', 'weather', 'clouds', 'pop', 'uvi']
     
     def daily_forecast(self, label_key):
@@ -54,9 +53,46 @@ class Forecast:
         """
         return data[day]
 
-    def daily_forecast_inner(self, label_key):
+    def daily_forecast_general(self, label_key):
         """Function returns list of all avaialble data of single cathegory of forecast.
         Function applies to temperature, feel temperature and general weather
+
+        Args:
+            label_key (str): cathegory of forecast (i.e. feels like, temperature and general weather)
+
+        Returns:
+            list: list of all data of single type in format [key, value]
+        """
+        daily_forcast = list()
+        for day_forecast in self.forecast['daily']:
+            for key, value in day_forecast[label_key][0].items():
+                daily_forcast.append((key, value))
+        return daily_forcast
+
+    def search_day_general(self, data, day, label_key):
+        """Functions returns value of forecast of needed day (from list returned from daily_forecast_inner).
+
+        Args:
+            data (list): forecast data 
+            day (str): needed day
+            label_key (str): inner cathegory
+            result (list): list of values
+
+        Returns:
+            [str]: forecast value
+        """
+        if label_key is None:       #program is filling label key with default value if it is missing
+            label_key = 'description'
+
+        result = list()
+        for label, value in data:
+            if label == label_key:
+                result.append(value)
+        return result[day]
+
+    def daily_forecast_temperature(self, label_key):
+        """Function returns list of all avaialble data of single cathegory of forecast.
+        Function applies to temperature, feel temperature.
 
         Args:
             label_key (str): cathegory of forecast (i.e. feels like, temperature and general weather)
@@ -70,8 +106,9 @@ class Forecast:
                 daily_forcast.append((key, value))
         return daily_forcast
 
-    def search_day_inner(self, data, day, label_key):
+    def search_day_temperature(self, data, day, label_key):
         """Functions returns value of forecast of needed day (from list returned from daily_forecast_inner).
+        Functions operates on temperature and feels_temperature.
 
         Args:
             data (list): forecast data 
@@ -80,14 +117,10 @@ class Forecast:
             result (list): list of values
 
         Returns:
-            [str]: forecast value
+            [float]: forecast value
         """
         if label_key is None:       #program is filling label key with default value if it is missing
-            if data[0][1] in ('id','main','description','icon'):
-                label_key = 'main'
-            else:
-                label_key = 'day'
-                
+            label_key = 'day'
         result = list()
         for label, value in data:
             if label == label_key:
@@ -105,7 +138,12 @@ class Forecast:
         Returns:
             [str]: forecast value
         """
-        if label_key in ('temp','feels_like','weather'):
-            return self.search_day_inner(self.daily_forecast_inner(label_key), day, inner_label_key)
+        if label_key == 'weather':
+            return self.search_day_general(self.daily_forecast_general(label_key), day, inner_label_key)
+        elif label_key in ('temp','feels_like'):
+            return self.search_day_temperature(self.daily_forecast_temperature(label_key), day, inner_label_key)
         else:
             return self.search_day(self.daily_forecast(label_key), day)
+
+# a = Forecast('Warsaw')
+# print(a.get_value('weather',0))

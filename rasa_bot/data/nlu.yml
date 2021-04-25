@@ -88,13 +88,48 @@ nlu:
 
 - intent: ask_weather_specific
   examples: |
-    - What are the [clouds](type) in [London](location)?
-    - Is it [windy](type) in [Warsaw](location)?
-    - Will it [snow](type) tomorrow in [Sopot](location)?
-    - Tell me the [cloud coverage](type) in [Dhaka](location).
+    - What are the [cloud](type) in [London](location)?
+    - What is the [wind_speed](type) in [Warsaw](location)?
+    - Will it [pressure](type) tomorrow in [Sopot](location)?
+    - Tell me the [temp](type) in [Dhaka](location).
+    - [temp](type)
+    - [feels_like](type)
+    - [pressure](type)
+    - [humidity](type)
+    - [dew_point](type)
+    - [wind_speed](type)
+    - [wind_deg](type)
+    - [weather](type)
+    - [cloud](type)
+    - [pop](type)
+    - [uvi](type)
 
 - intent: ask_weather_general
   examples: |
     - What is the weather in [London](location)?
     - Is it nice in [Warsaw](location)?
-    - Tel me the weather in [Sopot](location)?
+    - Tell me the weather in [Sopot](location)?
+    - Weather in [Karwia](location)?
+    - [London](location)
+    - [Sopot](location)
+    - [Cracow](location)
+    - [New York](location)
+    - [Bratislava](location)
+    - [Rowy](location)
+    - [Karwia](location)
+    - [Paris](location)
+    - [Moscow](location)
+    - [Pekin](location)
+    - [Madrit](location)
+    - [Koszyce](location)
+    - [Berlin](location)
+    - [Olsztyn](location)
+    - [Rome](location)
+    - [Cairo](location)
+    - [Rabat](location)
+    - [Tehran](location)
+    - [Dhaka](location)
+    - [Leba](location)
+    - [Łeba](location)
+    - [Wladyslawowo](location)
+    - [Władysławowo](location)

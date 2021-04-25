@@ -27,17 +27,20 @@ class ActionCheckWeatherGeneral(Action):
         dispatcher.utter_message(response)
         return [SlotSet('location', city)]
 
-# class ActionCheckWeatherSpecific(Action):
+class ActionCheckWeatherSpecific(Action):
 
-#     def name(self) -> Text:
-#         return "action_get_specific_weather"
+    def name(self) -> Text:
+        return "action_get_specific_weather"
     
-#     def run(self, dispatcher, tracker, domain):
-#         city = tracker.get_slot('location')
-#         part = tracker.get_slot('type')
-#         city_forecast = weather_calculation.Forecast(city)
-#         city_forecast.get_value(label_key = part, day = 1)
-        
+    def run(self, dispatcher, tracker, domain):
+        city = tracker.get_slot('location')
+        type = tracker.get_slot('type')
+        city_forecast = weather_calculation.Forecast(city)
+        weather = city_forecast.get_value(label_key = type, day = 1)
+        response = """Tommorow it is going to be {} in {}.""".format(weather, city)
+        dispatcher.utter_message(response)
+        return [SlotSet('location', city, type)]
+
 
 # class ActionHelloWorld(Action):
 #

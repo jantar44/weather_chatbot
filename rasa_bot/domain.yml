@@ -20,6 +20,12 @@ entities:
   - location
   - type
 
+slots:
+  type:
+    type: text
+  location:
+    type: text
+
 actions:
   - action_get_specific_weather
   - action_get_general_weather
@@ -46,7 +52,7 @@ responses:
   - text: "I am a bot, powered by Rasa."
 
   utter_getting_weather:
-  - text: "I am looking for a weather in {location}"
+  - text: "I am looking for a weather in {location}."
 
 session_config:
   session_expiration_time: 60
